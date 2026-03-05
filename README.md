@@ -83,19 +83,22 @@ Ambas as versões do histórico completo contêm **o mesmo número de registros 
 
 ## Estrutura dos Dados
 
-Todos os arquivos compartilham a mesma estrutura de 9 colunas:
+Todos os arquivos compartilham a mesma estrutura de 12 colunas:
 
-| Coluna             | Tipo   | Descrição                                                     |
-|--------------------|--------|---------------------------------------------------------------|
-| `codigo_fipe`      | string | Código único do veículo na FIPE                               |
-| `nome_modelo`      | string | Nome do modelo (ex: Palio 1.0, Corolla XEi)                   |
-| `nome_marca`       | string | Fabricante do veículo (ex: Fiat, Toyota)                      |
-| `nome_combustivel` | string | Tipo de combustível (Gasolina, Diesel, Flex, etc)             |
-| `ano_modelo`       | int    | Ano de fabricação do modelo                                   |
-| `valor_centavos`   | int    | Valor do veículo em centavos (evita erros de ponto flutuante) |
-| `valor_formatado`  | string | Valor do veículo em Reais (R$) para facilidade de leitura     |
-| `mes_referencia`   | int    | Mês de referência da tabela FIPE (1-12)                       |
-| `ano_referencia`   | int    | Ano de referência da tabela FIPE                              |
+| Coluna               | Tipo   | Descrição                                                     |
+|----------------------|--------|---------------------------------------------------------------|
+| `tipo_veiculo`       | string | Categoria do veículo (carro, moto, caminhão)                  |
+| `codigo_fipe`        | string | Código único do veículo na FIPE                               |
+| `nome_modelo`        | string | Nome do modelo (ex: Palio 1.0, Corolla XEi)                   |
+| `nome_marca`         | string | Fabricante do veículo (ex: Fiat, Toyota)                      |
+| `nome_combustivel`   | string | Tipo de combustível (Gasolina, Diesel, Flex, etc)             |
+| `sigla_combustivel`  | string | Sigla do combustível (g, e, d, l, f, h, n)                    |
+| `ano_modelo`         | int    | Ano de fabricação do modelo                                   |
+| `zero_km`            | bool   | Se o veículo é zero quilômetro (true/false)                   |
+| `valor_centavos`     | int    | Valor do veículo em centavos (evita erros de ponto flutuante) |
+| `valor_formatado`    | string | Valor do veículo em Reais (R$) para facilidade de leitura     |
+| `mes_referencia`     | int    | Mês de referência da tabela FIPE (1-12)                       |
+| `ano_referencia`     | int    | Ano de referência da tabela FIPE                              |
 
 ## Exemplos de Uso
 
