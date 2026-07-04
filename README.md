@@ -19,7 +19,10 @@ size_categories:
 # fipeX: Dataset Completo da Tabela FIPE
 
 Este dataset contém preços históricos e atuais de veículos comercializados no Brasil, baseados na Tabela FIPE (Fundação Instituto de Pesquisas Econômicas).
-Os dados foram extraídos e organizados pelo projeto [fipeX](https://www.fipex.com.br), uma iniciativa independente para facilitar o acesso a dados automotivos públicos.
+
+Os dados são extraídos e organizados pelo projeto [fipeX](https://fipex.com.br) — uma iniciativa independente para facilitar o acesso a dados automotivos públicos, com [API pública gratuita](https://fipex.com.br/dados-e-api) e este dataset em domínio público.
+
+**Licença:** [CC0-1.0](LICENSE) — domínio público. Use livremente, inclusive comercialmente, sem necessidade de atribuição (atribuição é bem-vinda, claro).
 
 ## Sobre o Dataset
 
@@ -29,11 +32,36 @@ Este conjunto de dados é ideal para:
 - Estudos econômicos sobre o mercado automotivo brasileiro
 - Criação de aplicações de consulta e análise
 
+## Como Obter os Dados
+
+O dataset é distribuído em três canais:
+
+### 1. GitHub Releases (recomendado para download direto)
+
+As snapshots completas (~1 GB CSV / ~120 MB Parquet) são publicadas como **release assets** em [github.com/fipex-labs/dataset/releases](https://github.com/fipex-labs/dataset/releases). Cada tag (`v2026.05.0`, `v2026.04.0`, etc.) corresponde a uma referência mensal da FIPE.
+
+```bash
+# Download direto do release mais recente
+curl -L -o fipex-prices-latest-merged.parquet \
+  https://github.com/fipex-labs/dataset/releases/latest/download/fipex-prices-latest-merged.parquet
+
+# Ou via gh CLI
+gh release download --pattern '*.parquet' -R fipex-labs/dataset
+```
+
+### 2. Hugging Face Datasets
+
+Mirror oficial em [huggingface.co/datasets/alanwgt/fipex-veiculos-brasil](https://huggingface.co/datasets/alanwgt/fipex-veiculos-brasil) — ideal para integração com a stack ML (`datasets`, `polars`, etc.).
+
+### 3. Dumps mensais individuais (no git)
+
+Dumps por período de referência (`2026/01/`, `2026/02/`, …) ficam **dentro deste repositório**. São arquivos menores, versionáveis, e úteis para análises pontuais sem precisar baixar o histórico completo.
+
 ## Arquivos Disponíveis
 
-### Histórico Completo (raiz do repositório)
+### Histórico Completo (via GitHub Releases)
 
-4 arquivos com todo o histórico, combinando duas versões dos dados e dois formatos:
+4 arquivos por release, combinando duas versões dos dados e dois formatos:
 
 | Arquivo                              | Versão      | Formato | Descrição                                       |
 |--------------------------------------|-------------|---------|-------------------------------------------------|
@@ -121,7 +149,7 @@ print(f"Total de marcas: {df['nome_marca'].n_unique():,}")
 print(df.group_by("nome_marca").len().sort("len", descending=True).head(10))
 ```
 
-Para mais exemplos completos, veja o arquivo [`exemplo.py`](./exemplo.py) incluído neste dataset.
+Para mais exemplos completos, veja [`examples/python.py`](examples/python.py).
 
 ### SQL - DuckDB
 
@@ -134,6 +162,8 @@ ORDER BY total DESC
 LIMIT 10;
 ```
 
+Mais consultas prontas em [`examples/duckdb.sql`](examples/duckdb.sql).
+
 ## Aviso Legal
 
 Este dataset é derivado de informações públicas disponibilizadas pela FIPE. O fipeX é um projeto independente e **não possui afiliação** com a Fundação Instituto de Pesquisas Econômicas (FIPE).
@@ -143,3 +173,15 @@ Os dados são fornecidos "como estão", sem garantias de precisão absoluta. Rec
 ## Atualização
 
 Os dados são extraídos do banco de dados do FipeX. A intenção é manter este dataset atualizado mensalmente conforme a FIPE libera novas tabelas.
+
+## Como contribuir
+
+Veja [CONTRIBUTING.md](CONTRIBUTING.md). Scripts de exemplo em outras linguagens (R, Julia, Spark, etc.) são especialmente bem-vindos.
+
+## Projetos relacionados
+
+| Recurso                                                      | Conteúdo                                              |
+|--------------------------------------------------------------|-------------------------------------------------------|
+| [fipex-labs/dataset](https://github.com/fipex-labs/dataset) | Este repositório — dataset (CC0)                      |
+| [fipex.com.br](https://fipex.com.br)                        | Consulta da Tabela FIPE, gratuita e sem cadastro      |
+| [API pública](https://fipex.com.br/dados-e-api)             | API REST gratuita, sem chave, 10 req/s por IP         |
