@@ -9,8 +9,8 @@ from pathlib import Path
 import polars as pl
 
 
-# Diretório base (onde este script está localizado)
-BASE_DIR = Path(__file__).parent
+# Raiz do repositório (os arquivos de dados ficam um nível acima de examples/)
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 def load_csv(filename: str) -> pl.DataFrame:
